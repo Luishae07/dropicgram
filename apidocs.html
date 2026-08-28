@@ -17,7 +17,7 @@ header nav a{color:var(--mut);text-decoration:none;font-weight:600;font-size:14p
 header nav a:hover{color:var(--acc)}
 h1{font-size:28px;margin-bottom:6px}
 .sub{color:var(--mut);font-size:14px;margin-bottom:18px}
-.dl{display:inline-block;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-weight:800;padding:10px 20px;border-radius:999px;text-decoration:none;margin-bottom:24px;border:none;cursor:pointer;font-size:15px}
+.dl{display:inline-block;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-weight:800;padding:10px 20px;border-radius:999px;text-decoration:none;margin-bottom:24px}
 .tag-title{font-size:20px;margin:26px 0 10px;color:var(--acc);text-transform:capitalize}
 .ep{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
@@ -25,6 +25,7 @@ h1{font-size:28px;margin-bottom:6px}
 .m.get{background:var(--g)}.m.post{background:var(--b)}.m.put{background:var(--o)}.m.delete{background:var(--r)}
 .path{font-family:ui-monospace,monospace;font-size:13.5px;font-weight:700;color:var(--ink);word-break:break-all}
 .sum{color:var(--mut);font-size:13px;margin-top:2px}
+.oid{font-family:ui-monospace,monospace;color:var(--faint,#6b7488);font-size:11px;margin-left:6px}
 @media(max-width:600px){header{flex-direction:column;align-items:flex-start}header nav{margin-left:0}}
 </style>
 </head>
@@ -35,211 +36,222 @@ h1{font-size:28px;margin-bottom:6px}
 <nav><a href="./">Back</a><a href="docs.html">Docs</a></nav>
 </header>
 <h1>API Reference</h1>
-<p class="sub">REST API for Dropicgram — a social photo-sharing platform. Auth is via JWT in the `Authorization: Bearer &lt;token&gt;` header (or a `token` cookie). All endpoints return JSON. — 1.0.0</p>
+<p class="sub">API for Dropicgram, a social photo-sharing platform. Share moments, discover people, and keep your images protected with a custom .pqos format (invisible watermarking + perceptual duplicate detection). All endpoints return JSON. Authenticate with `Authorization: Bearer &lt;JWT&gt;`.</p>
 <a class="dl" href="openapi.json">⬇️ Download openapi.json</a>
-<h2 class="tag-title">auth</h2><div class="ep">
+<h2 class="tag-title">Auth</h2><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/auth/login</code></div>
-      <div class="sum">Log in</div>
+      <div class="sum">Log in to an account <span class="oid">login_account</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/auth/logout</code></div>
-      <div class="sum">Log out</div>
+      <div class="sum">Log out of the current session <span class="oid">logout_account</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/auth/me</code></div>
-      <div class="sum">Get the current user</div>
+      <div class="sum">Get the current user <span class="oid">get_current_user</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/auth/register</code></div>
-      <div class="sum">Register a new account</div>
-    </div><h2 class="tag-title">posts</h2><div class="ep">
+      <div class="sum">Register a new account <span class="oid">register_account</span></div>
+    </div><h2 class="tag-title">Posts</h2><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts</code></div>
-      <div class="sum">Create a post (text, image, or both)</div>
+      <div class="sum">Create a post <span class="oid">create_post</span></div>
+    </div><div class="ep">
+      <div class="head"><span class="m delete">DELETE</span><code class="path">/api/posts/comments/{id}</code></div>
+      <div class="sum">Delete own comment <span class="oid">delete_comment</span></div>
+    </div><div class="ep">
+      <div class="head"><span class="m post">POST</span><code class="path">/api/posts/comments/{id}/like</code></div>
+      <div class="sum">Like a comment <span class="oid">like_comment</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/posts/explore</code></div>
-      <div class="sum">All posts, newest first</div>
+      <div class="sum">Get the curated explore feed <span class="oid">explore_posts</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/posts/feed</code></div>
-      <div class="sum">Feed of posts from people you follow + your own</div>
+      <div class="sum">Get the home feed <span class="oid">get_feed</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts/polls/{pollId}/vote</code></div>
-      <div class="sum">Vote on a poll</div>
+      <div class="sum">Vote on a poll <span class="oid">vote_poll</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/posts/user/{username}</code></div>
-      <div class="sum">A user's profile + posts</div>
+      <div class="sum">Get a user's profile and posts <span class="oid">get_user_posts</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/posts/{id}</code></div>
-      <div class="sum">Get a single post</div>
+      <div class="sum">Get a single post <span class="oid">get_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m put">PUT</span><code class="path">/api/posts/{id}</code></div>
-      <div class="sum">Edit own post</div>
+      <div class="sum">Edit own post <span class="oid">update_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m delete">DELETE</span><code class="path">/api/posts/{id}</code></div>
-      <div class="sum">Delete own post</div>
+      <div class="sum">Delete own post <span class="oid">delete_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts/{id}/comments</code></div>
-      <div class="sum">Comment or reply (optionally with an image)</div>
+      <div class="sum">Comment or reply on a post <span class="oid">create_comment</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts/{id}/like</code></div>
-      <div class="sum">Like a post</div>
+      <div class="sum">Like a post <span class="oid">like_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts/{id}/pin</code></div>
-      <div class="sum">Pin/unpin own post</div>
+      <div class="sum">Pin or unpin own post <span class="oid">pin_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts/{id}/quote</code></div>
-      <div class="sum">Quote a post with your own text</div>
+      <div class="sum">Quote a post with your own text <span class="oid">quote_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts/{id}/react</code></div>
-      <div class="sum">Add an emoji reaction</div>
+      <div class="sum">Add an emoji reaction to a post <span class="oid">react_to_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts/{id}/repost</code></div>
-      <div class="sum">Repost a post</div>
+      <div class="sum">Repost a post <span class="oid">repost_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/posts/{id}/unlike</code></div>
-      <div class="sum">Unlike a post</div>
-    </div><h2 class="tag-title">users</h2><div class="ep">
+      <div class="sum">Unlike a post <span class="oid">unlike_post</span></div>
+    </div><h2 class="tag-title">Users</h2><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/users/requests/{username}/accept</code></div>
-      <div class="sum">Accept a follow request</div>
+      <div class="sum">Accept a follow request <span class="oid">accept_follow_request</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/users/requests/{username}/decline</code></div>
-      <div class="sum">Decline a follow request</div>
+      <div class="sum">Decline a follow request <span class="oid">decline_follow_request</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/users/{username}</code></div>
-      <div class="sum">Get a user profile with counts</div>
+      <div class="sum">Get a user profile <span class="oid">get_user</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/users/{username}/follow</code></div>
-      <div class="sum">Follow a user (or request to follow if private)</div>
+      <div class="sum">Follow a user <span class="oid">follow_user</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/users/{username}/unfollow</code></div>
-      <div class="sum">Unfollow a user</div>
-    </div><h2 class="tag-title">account</h2><div class="ep">
+      <div class="sum">Unfollow a user <span class="oid">unfollow_user</span></div>
+    </div><h2 class="tag-title">Account</h2><div class="ep">
       <div class="head"><span class="m delete">DELETE</span><code class="path">/api/account/account</code></div>
-      <div class="sum">Permanently delete account</div>
+      <div class="sum">Permanently delete account <span class="oid">delete_account</span></div>
     </div><div class="ep">
       <div class="head"><span class="m put">PUT</span><code class="path">/api/account/avatar</code></div>
-      <div class="sum">Upload avatar image</div>
+      <div class="sum">Upload avatar image <span class="oid">update_avatar</span></div>
     </div><div class="ep">
       <div class="head"><span class="m put">PUT</span><code class="path">/api/account/cover</code></div>
-      <div class="sum">Upload cover image</div>
+      <div class="sum">Upload cover image <span class="oid">update_cover</span></div>
     </div><div class="ep">
       <div class="head"><span class="m put">PUT</span><code class="path">/api/account/password</code></div>
-      <div class="sum">Change password</div>
+      <div class="sum">Change account password <span class="oid">change_password</span></div>
     </div><div class="ep">
       <div class="head"><span class="m put">PUT</span><code class="path">/api/account/privacy</code></div>
-      <div class="sum">Toggle private account</div>
+      <div class="sum">Toggle private account <span class="oid">toggle_privacy</span></div>
     </div><div class="ep">
       <div class="head"><span class="m put">PUT</span><code class="path">/api/account/profile</code></div>
-      <div class="sum">Edit display name + bio</div>
+      <div class="sum">Edit display name and bio <span class="oid">update_profile</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/account/settings</code></div>
-      <div class="sum">Get notification/dark-mode settings</div>
+      <div class="sum">Get account settings <span class="oid">get_settings</span></div>
     </div><div class="ep">
       <div class="head"><span class="m put">PUT</span><code class="path">/api/account/settings</code></div>
-      <div class="sum">Update settings</div>
-    </div><h2 class="tag-title">search</h2><div class="ep">
+      <div class="sum">Update account settings <span class="oid">update_settings</span></div>
+    </div><h2 class="tag-title">Search</h2><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/search</code></div>
-      <div class="sum">Search users, posts, and hashtags</div>
+      <div class="sum">Search users, posts, and hashtags <span class="oid">search</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/search/followers/{username}</code></div>
-      <div class="sum">Followers of a user</div>
+      <div class="sum">Get a user's followers <span class="oid">get_followers</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/search/following/{username}</code></div>
-      <div class="sum">Users a person follows</div>
+      <div class="sum">Get users a person follows <span class="oid">get_following</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/search/hashtag/{tag}</code></div>
-      <div class="sum">Posts with a hashtag</div>
+      <div class="sum">Get posts for a hashtag <span class="oid">get_hashtag_posts</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/search/requests</code></div>
-      <div class="sum">Pending follow requests for you</div>
+      <div class="sum">Get pending follow requests <span class="oid">get_follow_requests</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/search/suggestions</code></div>
-      <div class="sum">Suggested users to follow</div>
+      <div class="sum">Get suggested users to follow <span class="oid">get_suggestions</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/search/trending</code></div>
-      <div class="sum">Trending hashtags by usage</div>
-    </div><h2 class="tag-title">notifications</h2><div class="ep">
+      <div class="sum">Get trending hashtags <span class="oid">get_trending</span></div>
+    </div><div class="ep">
+      <div class="head"><span class="m get">GET</span><code class="path">/api/search/users</code></div>
+      <div class="sum">List all users <span class="oid">list_users</span></div>
+    </div><h2 class="tag-title">Notifications</h2><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/notifications</code></div>
-      <div class="sum">List notifications + unread count</div>
+      <div class="sum">List notifications <span class="oid">list_notifications</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/notifications/read-all</code></div>
-      <div class="sum">Mark all notifications read</div>
+      <div class="sum">Mark all notifications read <span class="oid">mark_all_read</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/notifications/unread</code></div>
-      <div class="sum">Unread notification count</div>
-    </div><h2 class="tag-title">messages</h2><div class="ep">
+      <div class="sum">Get unread notification count <span class="oid">get_unread_count</span></div>
+    </div><h2 class="tag-title">Messages</h2><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/messages/conversations</code></div>
-      <div class="sum">List DM conversations</div>
+      <div class="sum">List DM conversations <span class="oid">list_conversations</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/messages/{username}</code></div>
-      <div class="sum">Message thread with a user (marks read)</div>
+      <div class="sum">Get a message thread with a user <span class="oid">get_thread</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/messages/{username}</code></div>
-      <div class="sum">Send a message (text or photo)</div>
-    </div><h2 class="tag-title">stories</h2><div class="ep">
+      <div class="sum">Send a message <span class="oid">send_message</span></div>
+    </div><h2 class="tag-title">Stories</h2><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/stories</code></div>
-      <div class="sum">Stories from you + people you follow (24h)</div>
+      <div class="sum">Get stories <span class="oid">list_stories</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/stories</code></div>
-      <div class="sum">Post a story image</div>
+      <div class="sum">Post a story <span class="oid">create_story</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/stories/{id}/view</code></div>
-      <div class="sum">Mark a story viewed</div>
-    </div><h2 class="tag-title">misc</h2><div class="ep">
+      <div class="sum">Mark a story as viewed <span class="oid">mark_story_viewed</span></div>
+    </div><h2 class="tag-title">Misc</h2><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/misc/blocks</code></div>
-      <div class="sum">Blocked users</div>
+      <div class="sum">List blocked users <span class="oid">list_blocks</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/misc/blocks/{username}</code></div>
-      <div class="sum">Block a user</div>
+      <div class="sum">Block a user <span class="oid">block_user</span></div>
     </div><div class="ep">
       <div class="head"><span class="m delete">DELETE</span><code class="path">/api/misc/blocks/{username}</code></div>
-      <div class="sum">Unblock a user</div>
+      <div class="sum">Unblock a user <span class="oid">unblock_user</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/misc/bookmarks</code></div>
-      <div class="sum">Saved posts</div>
+      <div class="sum">List saved posts <span class="oid">list_bookmarks</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/misc/bookmarks/{postId}</code></div>
-      <div class="sum">Save a post</div>
+      <div class="sum">Save a post <span class="oid">save_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m delete">DELETE</span><code class="path">/api/misc/bookmarks/{postId}</code></div>
-      <div class="sum">Unsave a post</div>
+      <div class="sum">Remove a saved post <span class="oid">unsave_post</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/misc/drafts</code></div>
-      <div class="sum">List drafts</div>
+      <div class="sum">List drafts <span class="oid">list_drafts</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/misc/drafts</code></div>
-      <div class="sum">Save a draft</div>
+      <div class="sum">Save a draft <span class="oid">save_draft</span></div>
     </div><div class="ep">
       <div class="head"><span class="m delete">DELETE</span><code class="path">/api/misc/drafts/{id}</code></div>
-      <div class="sum">Delete a draft</div>
+      <div class="sum">Delete a draft <span class="oid">delete_draft</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/misc/export</code></div>
-      <div class="sum">Download your data as JSON</div>
+      <div class="sum">Download your data as JSON <span class="oid">export_data</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/misc/muted-words</code></div>
-      <div class="sum">Muted words</div>
+      <div class="sum">List muted words <span class="oid">list_muted_words</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/misc/muted-words</code></div>
-      <div class="sum">Add a muted word</div>
+      <div class="sum">Add a muted word <span class="oid">add_muted_word</span></div>
     </div><div class="ep">
       <div class="head"><span class="m delete">DELETE</span><code class="path">/api/misc/muted-words</code></div>
-      <div class="sum">Remove a muted word</div>
+      <div class="sum">Remove a muted word <span class="oid">remove_muted_word</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/misc/mutes</code></div>
-      <div class="sum">Muted users</div>
+      <div class="sum">List muted users <span class="oid">list_mutes</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/misc/mutes/{username}</code></div>
-      <div class="sum">Mute a user</div>
+      <div class="sum">Mute a user <span class="oid">mute_user</span></div>
     </div><div class="ep">
       <div class="head"><span class="m delete">DELETE</span><code class="path">/api/misc/mutes/{username}</code></div>
-      <div class="sum">Unmute a user</div>
+      <div class="sum">Unmute a user <span class="oid">unmute_user</span></div>
     </div><div class="ep">
       <div class="head"><span class="m post">POST</span><code class="path">/api/misc/reports</code></div>
-      <div class="sum">Report content</div>
+      <div class="sum">Report content <span class="oid">report_content</span></div>
     </div><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/api/misc/stats</code></div>
-      <div class="sum">Your account stats</div>
+      <div class="sum">Get account stats <span class="oid">get_stats</span></div>
     </div><div class="ep">
+      <div class="head"><span class="m get">GET</span><code class="path">/api/openapi.json</code></div>
+      <div class="sum">Get the OpenAPI spec <span class="oid">get_openapi</span></div>
+    </div><h2 class="tag-title">Realtime</h2><div class="ep">
       <div class="head"><span class="m get">GET</span><code class="path">/ws</code></div>
-      <div class="sum">WebSocket endpoint for real-time events (DMs, notifications, typing, read receipts)</div>
+      <div class="sum">Connect to the real-time WebSocket <span class="oid">websocket_connect</span></div>
     </div>
 </div>
-
 </body>
 </html>
