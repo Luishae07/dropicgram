@@ -176,9 +176,12 @@
     <div id="userlist"><div class="skeleton"></div></div>`;let e=document.getElementById("usersearch"),t=document.getElementById("userlist"),a=[];function s(i){let n=(i||"").toLowerCase(),u=n?a.filter(d=>d.username.toLowerCase().includes(n)||(d.display_name||"").toLowerCase().includes(n)):a;if(!u.length){t.innerHTML='<div class="empty">No users found.</div>';return}t.innerHTML=u.map(d=>`
       <div class="card userrow" data-username="${o(d.username)}">
         <a href="${r(`/${o(d.username)}`)}" data-nav="${r(`/${o(d.username)}`)}">
-          ${h(d,40)} <b>${o(d.display_name)}</b> <span class="username">@${o(d.username)}</span>
+          ${h(d,44)}
+          <div class="uinfo">
+            <div class="uname-row"><b>${o(d.display_name)}</b> <span class="username">@${o(d.username)}</span></div>
+            <div class="umeta">${d.posts_count} posts \xB7 ${d.followers_count} followers</div>
+          </div>
         </a>
-        <span class="username">${d.posts_count} posts \xB7 ${d.followers_count} followers</span>
         ${m&&m.username!==d.username?`
           <button class="btn ${d.is_following?"following":""}" data-action="follow-user" data-u="${o(d.username)}">
             ${d.is_following?"Following \u2713":"Follow"}
