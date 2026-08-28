@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dropicgram API Reference</title>
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <style>
+    :root {
+      --bg: #0b0c10; --bg-elev: #13151c; --card: #1a1d26; --card2: #232734;
+      --ink: #eef0f6; --muted: #9aa3b5; --faint: #6b7488;
+      --accent: #5e7bff; --accent2: #a06bff; --border: #282d3a;
+      --green: #22c55e; --blue: #3b82f6; --orange: #f59e0b; --red: #ef4444;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.6;
+    }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+    header {
+      display: flex; align-items: center; gap: 12px; padding: 20px 0; margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 22px; font-weight: 900; background: linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    header nav { margin-left: auto; display: flex; gap: 16px; }
+    header nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: 14px; }
+    header nav a:hover { color: var(--accent); }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    .sub { color: var(--muted); margin-bottom: 18px; font-size: 14px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+    .tag {
+      background: var(--bg-elev); border: 1px solid var(--border); border-radius: 999px;
+      padding: 7px 16px; font-size: 13px; font-weight: 700; color: var(--muted); cursor: pointer;
+      transition: all .15s;
+    }
+    .tag:hover { color: var(--accent); border-color: var(--accent); }
+    .tag.active { background: linear-gradient(135deg,var(--accent),var(--accent2)); color: #fff; border-color: transparent; }
+    .endpoint { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin-bottom: 12px; }
+    .ep-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .method { font-weight: 800; font-size: 12px; padding: 3px 10px; border-radius: 6px; color: #fff; letter-spacing: .5px; }
+    .get { background: var(--green); } .post { background: var(--blue); } .put { background: var(--orange); } .delete { background: var(--red); }
+    .path { font-family: ui-monospace, monospace; font-size: 14px; font-weight: 700; color: var(--ink); word-break: break-all; }
+    .summary { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .toggle {
+      margin-left: auto; background: none; border: 1px solid var(--border); color: var(--muted);
+      border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 700; cursor: pointer;
+    }
+    .toggle:hover { color: var(--accent); border-color: var(--accent); }
+    .detail { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; display: none; }
+    .detail.open { display: block; }
+    .dlabel { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin: 10px 0 4px; }
+    .codeblock {
+      background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px; font-size: 12px; overflow-x: auto; color: var(--ink); white-space: pre-wrap;
+    }
+    table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+    th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--border); font-size: 12.5px; vertical-align: top; }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+    td code { background: var(--bg-elev); padding: 1px 5px; border-radius: 4px; font-size: 12px; color: var(--accent); }
+    .empty { text-align: center; color: var(--muted); padding: 40px; }
+    .back { display: inline-block; color: var(--accent); text-decoration: none; font-weight: 700; margin-bottom: 12px; }
+    @media (max-width: 600px) {
+      header { flex-direction: column; align-items: flex-start; }
+      header nav { margin-left: 0; }
+      .ep-head { gap: 8px; }
+      .path { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="logo">Dropicgram</span>
+      <nav>
+        <a href="/">Back to app</a>
+        <a href="/docs.html">Docs</a>
+      </nav>
+    </header>
+
+    <h1>API Reference</h1>
+    <p class="sub">Every endpoint in Dropicgram. Auth: <code>Authorization: Bearer &lt;JWT&gt;</code></p>
+
+    <div class="tags" id="tags"></div>
+    <div id="paths"></div>
+  </div>
+
+  <script>
+    const BASE = window.DROPIC_API || "https://aware-economy-cellular-philadelphia.trycloudflare.com";
+
+    async function load() {
+      const tagsEl = document.getElementById("tags");
+      const pathsEl = document.getElementById("paths");
+      let spec;
+      try {
+        const res = await fetch(BASE + "/api/openapi.json");
+        spec = await res.json();
+      } catch (e) {
+        pathsEl.innerHTML = '<div class="empty">Failed to load the OpenAPI spec.</div>';
+        return;
+      }
+
+      const tags = (spec.tags || []).map((t) => t.name);
+      tagsEl.innerHTML = tags.map((t) => `<button class="tag" data-tag="${t}">${t}</button>`).join("");
+
+      const list = [];
+      for (const [path, methods] of Object.entries(spec.paths || {})) {
+        for (const [method, op] of Object.entries(methods)) {
+          if (!["get", "post", "put", "delete"].includes(method)) continue;
+          list.push({ tag: op.tags?.[0] || "other", path, method, op });
+        }
+      }
+
+      function esc(s) {
+        return String(s ?? "").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+      }
+
+      function render(filter) {
+        const items = filter ? list.filter((x) => x.tag === filter) : list;
+        pathsEl.innerHTML = items.map((e) => {
+          const params = (e.op.parameters || []).map((p) =>
+            `<tr><td><code>${esc(p.name)}</code></td><td>${esc(p.in)}</td><td>${p.required ? "required" : "optional"}</td><td>${esc(JSON.stringify(p.schema || {}))}</td></tr>`
+          ).join("");
+          const reqBody = e.op.requestBody?.content
+            ? Object.entries(e.op.requestBody.content).map(([ct, v]) =>
+                `<div class="dlabel">Body · ${esc(ct)}</div><div class="codeblock">${esc(JSON.stringify(v.schema, null, 2))}</div>`).join("")
+            : "";
+          const responses = e.op.responses
+            ? Object.entries(e.op.responses).map(([code, r]) =>
+                `<div class="dlabel">${esc(code)} — ${esc(r.description || "")}</div>`).join("")
+            : "";
+          return `
+          <div class="endpoint" data-tag="${esc(e.tag)}">
+            <div class="ep-head">
+              <span class="method ${esc(e.method)}">${esc(e.method.toUpperCase())}</span>
+              <span class="path">${esc(e.path)}</span>
+              <button class="toggle">Details</button>
+            </div>
+            <div class="summary">${esc(e.op.summary || "")}</div>
+            <div class="detail">
+              ${params ? `<div class="dlabel">Parameters</div><table>${params}</table>` : ""}
+              ${reqBody}
+              ${responses ? `<div class="dlabel">Responses</div>${responses}` : ""}
+            </div>
+          </div>`;
+        }).join("") || '<div class="empty">No endpoints in this tag.</div>';
+
+        pathsEl.querySelectorAll(".endpoint").forEach((ep) => {
+          ep.querySelector(".toggle").addEventListener("click", () => {
+            ep.querySelector(".detail").classList.toggle("open");
+          });
+        });
+      }
+      render();
+
+      tagsEl.querySelectorAll(".tag").forEach((b) =>
+        b.addEventListener("click", () => {
+          tagsEl.querySelectorAll(".tag").forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          render(b.dataset.tag);
+        })
+      );
+    }
+    load();
+  </script>
+</body>
+</html>
