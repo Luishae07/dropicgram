@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dropicgram" />
+  <meta name="theme-color" content="#5e7bff" />
+  <title>Dropicgram</title>
+  <base href="/">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <nav class="sidebar" id="sidebar" style="display:none"></nav>
+
+    <div class="main-col">
+      <header class="topbar">
+        <span class="logo-big">Dropicgram</span>
+        <div id="userbox" class="userbox" style="margin-left:auto"></div>
+      </header>
+      <main id="app" class="app"></main>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" id="mobilenav">
+    <a href="/mobile" class="nav-item" data-nav="/mobile" data-nav-key="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Home</span></a>
+    <a href="/mobile/explore" class="nav-item" data-nav="/mobile/explore" data-nav-key="/explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Explore</span></a>
+    <a href="/mobile/users" class="nav-item" data-nav="/mobile/users" data-nav-key="/users"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Users</span></a>
+    <a href="/mobile/notifications" class="nav-item" data-nav="/mobile/notifications" data-nav-key="/notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span>Alerts</span><span class="badge" data-unread style="display:none"></span></a>
+    <a href="/mobile/messages" class="nav-item" data-nav="/mobile/messages" data-nav-key="/messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.6A8.5 8.5 0 1 1 21 11.5Z"/></svg><span>DMs</span></a>
+    <a href="/mobile/me" class="nav-item" data-nav="/mobile/me" data-nav-key="/me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Me</span></a>
+  </nav>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    window.DROPIC_BASE = "/mobile";
+  </script>
+  <script src="app.js?v=20"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
