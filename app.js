@@ -278,8 +278,8 @@
       <div class="setting-row"><a data-nav="${r("/mutes")}" href="${r("/mutes")}">\u{1F515} Muted users</a></div>
       <div class="setting-row"><a data-nav="${r("/muted-words")}" href="${r("/muted-words")}">\u{1F910} Muted words</a></div>
       <div class="setting-row"><a data-nav="${r("/stats")}" href="${r("/stats")}">\u{1F4CA} My stats</a></div>
-      <div class="setting-row"><a href="/docs.html" target="_blank">\u{1F4DA} Documentation</a></div>
-      <div class="setting-row"><a href="/apidocs.html" target="_blank">\u26A1 API Reference</a></div>
+      <div class="setting-row"><a href="${r("/docs.html")}" target="_blank">\u{1F4DA} Documentation</a></div>
+      <div class="setting-row"><a href="${r("/apidocs.html")}" target="_blank">\u26A1 API Reference</a></div>
     </div>
     <div class="card">
       <h2>Data</h2>
