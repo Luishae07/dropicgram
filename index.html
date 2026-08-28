@@ -53,11 +53,13 @@
     window.DROPIC_BASE = "/dropicgram";
     window.DROPIC_API = "https://aware-economy-cellular-philadelphia.trycloudflare.com";
   </script>
-  <script src="app.js?v=24"></script>
+  <script src="app.js?v=25"></script>
 <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("sw.js").catch(() => {});
+        navigator.serviceWorker.register("sw.js").then((reg) => {
+          reg.update();
+        }).catch(() => {});
       });
     }
   </script>
