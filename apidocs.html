@@ -79,7 +79,7 @@
     </header>
 
     <h1>API Reference</h1>
-    <p class="sub">Every endpoint in Dropicgram. Auth: <code>Authorization: Bearer &lt;JWT&gt;</code></p>
+    <p class="sub">Every endpoint in Dropicgram. Auth: <code>Authorization: Bearer &lt;JWT&gt;</code> · <a href="#" id="dl-spec" download style="color:var(--accent)">⬇️ Download openapi.json</a></p>
 
     <div class="tags" id="tags"></div>
     <div id="paths"></div>
@@ -162,6 +162,10 @@
       );
     }
     load();
+    document.getElementById("dl-spec").addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = BASE + "/api/openapi.json";
+    });
   </script>
 </body>
 </html>
