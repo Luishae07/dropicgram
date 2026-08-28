@@ -1,4 +1,4 @@
-const VERSION = "dropicgram-v2";
+const VERSION = "dropicgram-v3";
 const CORE = [
   ".",
   "styles.css",
@@ -29,25 +29,27 @@ self.addEventListener("fetch", (e) => {
 
   if (e.request.method !== "GET") return;
 
-  const isNav = e.request.mode === "navigate" || e.request.headers.get("accept")?.includes("text/html");
+  const isHtml =
+    e.request.mode === "navigate" ||
+    e.request.headers.get("accept")?.includes("text/html") ||
+    url.pathname.endsWith(".html");
 
-  if (isNav) {
+  // HTML is always network-first so new pages reach PWA users immediately
+  if (isHtml) {
     e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
 
+  // assets: network-first too, so app.js updates don't linger in cache
   e.respondWith(
-    caches.match(e.request).then((cached) => {
-      const fetched = fetch(e.request)
-        .then((res) => {
-          if (res.ok) {
-            const clone = res.clone();
-            caches.open(VERSION).then((c) => c.put(e.request, clone));
-          }
-          return res;
-        })
-        .catch(() => cached);
-      return cached || fetched;
-    })
+    fetch(e.request)
+      .then((res) => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(VERSION).then((c) => c.put(e.request, clone));
+        }
+        return res;
+      })
+      .catch(() => caches.match(e.request))
   );
 });
