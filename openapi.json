@@ -16,10 +16,6 @@
     {
       "url": "https://aware-economy-cellular-philadelphia.trycloudflare.com",
       "description": "Production API (live tunnel)"
-    },
-    {
-      "url": "http://localhost:4000",
-      "description": "Local development"
     }
   ],
   "paths": {
