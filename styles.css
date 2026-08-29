@@ -1393,6 +1393,175 @@ textarea.input {
   color: var(--muted);
 }
 
+/* ---------- Games ---------- */
+
+.games-head {
+  margin: 4px 4px 18px;
+}
+
+.games-head h1 {
+  font-size: 26px;
+  margin-bottom: 4px;
+}
+
+.games-head p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 26px 18px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.12s, border-color 0.15s;
+}
+
+.game-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.game-icon {
+  font-size: 40px;
+}
+
+.game-card h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.game-card p {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.game-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.game-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 460px;
+}
+
+.game-top h1 {
+  font-size: 20px;
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+.game-score {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--accent);
+}
+
+#snake {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  max-width: 100%;
+  max-height: 70vh;
+  touch-action: none;
+}
+
+/* 2048 */
+.t-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+  width: min(92vw, 420px);
+  touch-action: none;
+  user-select: none;
+}
+
+.t-cell {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(22px, 6vw, 34px);
+  font-weight: 900;
+  background: var(--card-2);
+  color: var(--ink);
+}
+
+.t-2, .t-4  { background: #31437a; }
+.t-8, .t-16 { background: #4a5bd0; }
+.t-32, .t-64 { background: #6a5cd6; }
+.t-128, .t-256 { background: #8a4fc9; }
+.t-512, .t-1024 { background: #a13fae; }
+.t-2048 { background: #c6217f; }
+
+/* Tic-tac-toe */
+.ttt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: min(84vw, 360px);
+}
+
+.ttt-cell {
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  font-size: clamp(38px, 12vw, 60px);
+  font-weight: 900;
+  font-family: inherit;
+}
+
+.ttt-cell:hover {
+  border-color: var(--accent);
+}
+
+/* Memory */
+.mem-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: min(92vw, 400px);
+}
+
+.mem-cell {
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  font-size: clamp(26px, 8vw, 40px);
+  cursor: pointer;
+}
+
+.mem-cell.up {
+  background: var(--card-2);
+  border-color: var(--accent);
+}
+
 /* ---------- Toast ---------- */
 
 .toast {
