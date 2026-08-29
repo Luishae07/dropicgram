@@ -1,4 +1,4 @@
-const VERSION = "dropicgram-v3";
+const VERSION = "dropicgram-v4";
 const CORE = [
   ".",
   "styles.css",
