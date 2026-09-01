@@ -54,14 +54,14 @@
           ${S(s[0],56)}
           <span>${r(s[0].username)}</span>
         </button>`).join("")}
-    </div>`}catch{return""}}function $e(t){return t.voted_option!=null?`<div class="poll">
+    </div>`}catch{return""}}function $e(t){return t.voted_option!=null?`<div class="poll" data-pid="${t.id}">
       <div class="poll-q">${r(t.question)}</div>
       ${t.options.map(e=>{let a=t.total_votes?Math.round(e.votes/t.total_votes*100):0;return`<div class="poll-result ${e.id===t.voted_option?"mine":""}">
           <div class="poll-bar" style="width:${a}%"></div>
           <span>${r(e.text)} \u2014 ${a}% (${e.votes})</span>
         </div>`}).join("")}
       <div class="poll-total">${t.total_votes} votes</div>
-    </div>`:`<div class="poll">
+    </div>`:`<div class="poll" data-pid="${t.id}">
     <div class="poll-q">${r(t.question)}</div>
     ${t.options.map(e=>`<button class="poll-opt" data-action="vote" data-opt="${e.id}">${r(e.text)}</button>`).join("")}
   </div>`}function Ee(t){return!t.original_post_id||!t.op_display_name&&!t.op_body&&!t.op_image?"":`<div class="quoted">
