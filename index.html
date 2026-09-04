@@ -23,6 +23,17 @@
   <meta name="twitter:title" content="Dropicgram" />
   <meta name="twitter:description" content="Drop your pics, discover new moments, and connect with people around the world." />
   <meta name="twitter:image" content="https://luishae07.github.io/dropicgram/icon.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Dropicgram",
+    "url": "https://luishae07.github.io/dropicgram/",
+    "description": "Dropicgram is a social photo-sharing platform. Drop your pics, discover new moments, and connect with people around the world.",
+    "applicationCategory": "SocialNetworkingApplication",
+    "operatingSystem": "Web"
+  }
+  </script>
   <base href="/dropicgram/">
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -47,7 +58,13 @@
         <input class="input topsearch" id="topsearch" placeholder="Search…" />
         <div id="userbox" class="userbox"></div>
       </header>
-      <main id="app" class="app"></main>
+      <main id="app" class="app">
+        <noscript>
+          <h1>Dropicgram</h1>
+          <p>Dropicgram is a social photo-sharing platform. Share photos and moments with the world. Discover new content, connect with people, play games, and join the community.</p>
+          <p>Please enable JavaScript to use Dropicgram, or visit our <a href="/dropicgram/landing.html">landing page</a> to learn more.</p>
+        </noscript>
+      </main>
     </div>
   </div>
 
